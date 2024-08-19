@@ -27,12 +27,17 @@
                 <td>{{ category.created_at }}</td>
                 <td>{{ category.updated_at }}</td>
                 <td>
+                  {% if user.is_staff %}
                     <a href="{% url 'edit_category' category.id %}"><i class="fa fa-edit text-success"></i></a>
                     &nbsp;
                     <a href="{% url 'delete_category' category.id %}"><i class="fa fa-trash text-danger"></i></a>
+                  {% else %}
+                  <i class="fa fa-ban fa-fw text-danger"></i>
+                  {% endif %}
                 </td>
               </tr>
             {% endfor %}
+
             </tbody>
           </table>
      </div>

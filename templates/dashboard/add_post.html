@@ -16,7 +16,10 @@
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
         <br/>
+        {% if not user.is_staff %}
+        <span class="text-danger mt-1 mb-1">** once submitted can't be changed **<span>
+        {% endif %}
      </div>
 </div>
-
+<br/>
 {% endblock %}
