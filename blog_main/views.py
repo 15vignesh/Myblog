@@ -3,7 +3,7 @@ from blogs.models import Category,Blog
 from assignments.models import About
 from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import auth
+from django.contrib import auth,messages
 
 def home(request):
     featured_posts=Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
@@ -45,9 +45,9 @@ def login(request):
             user=auth.authenticate(username=username,password=password)
             if user is not None:
                 auth.login(request,user)
-            return redirect('dashboard')
-                
-        
+                return redirect('dashboard')
+            else:
+                messages.error(request, "Invalid Username or Password")
     form=AuthenticationForm()
     context={
         'form':form,

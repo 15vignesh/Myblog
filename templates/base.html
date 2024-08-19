@@ -6,10 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Blogs</title>
+    <title>SR Blogs</title>
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon.png' %}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 <body>
@@ -17,7 +19,7 @@
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a class="blog-header-logo text-dark" href="/">Django Blog</a>
+            <a class="blog-header-logo text-warning" href="/">SR Blogs</a>
           </div>
           <div class="col-4">
             <form action="{% url 'search' %}" method="GET">
@@ -59,7 +61,7 @@
 
 <!-- Footer Part-->
 <footer class="blog-footer">
-    <p>Django blog built with <span style="color:#FFB7C5;">&#9829;</span> by <a href="#">SR VIGNESH</a></p>
+    <p>SR blogs built with <span style="color:#FFB7C5;">&#9829;</span> by <a href="#">SR VIGNESH</a></p>
   </footer>
   </body>
   </html>
