@@ -8,6 +8,7 @@
     <!-- load the side bar -->
     {% include 'dashboard/sidebar.html' %}
     <!-- Right Side Content-->
+     {% if user.is_staff %}
      <div class="col-md-9">
         <h3 class="text-center">Edit Category</h3>
         <form action="{% url 'edit_category' category.id %}" method="POST" style="width:500px;">
@@ -17,6 +18,9 @@
         </form>
         <br/>
      </div>
+     {% else %}
+     <h5>You don't have access to view this page</h5>
+     {% endif %}
 </div>
 
 {% endblock %}

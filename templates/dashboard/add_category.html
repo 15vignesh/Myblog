@@ -15,8 +15,10 @@
                 {{ form | crispy }}
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
+        <br/>
         {% if not user.is_staff %}
-        <span class="text-danger mt-1 mb-1">** once submitted can't be changed **<span>
+        <div class="alert alert-danger"><b>once submitted can't be changed </b></div>
+
         {% endif %}
      </div>
 </div>
