@@ -31,7 +31,8 @@ def register(request):
             messages.success(request, "Registration successful. You can now log in.")
             return redirect('register')
         else:
-            print(form.errors)
+            messages.error(request, "Registration Failed.Try again.")
+
     else:
         form=RegistrationForm()
     context={
