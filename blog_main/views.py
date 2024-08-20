@@ -4,6 +4,8 @@ from assignments.models import About
 from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth,messages
+from django.contrib.auth import authenticate, login as auth_login
+
 
 def home(request):
     featured_posts=Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
@@ -26,6 +28,7 @@ def register(request):
         form=RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Registration successful. You can now log in.")
             return redirect('register')
         else:
             print(form.errors)
@@ -44,11 +47,12 @@ def login(request):
             password=form.cleaned_data['password']
             user=auth.authenticate(username=username,password=password)
             if user is not None:
-                auth.login(request,user)
+                auth_login(request,user)
                 return redirect('dashboard')
             else:
                 messages.error(request, "Invalid Username or Password")
-    form=AuthenticationForm()
+    else:
+        form=AuthenticationForm()
     context={
         'form':form,
     }
