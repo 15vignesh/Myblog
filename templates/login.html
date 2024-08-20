@@ -9,7 +9,7 @@
     {{ form | crispy }}
     <button type="submit" class="btn btn-warning" >Login</button>
     
-    <h6 class="pt-3">do not have account register => <a href="{% url 'register' %}" class="text-success"><i class="fa fa-registered"></i></a></h6>
+    <h6 class="pt-3">New user ? <a href="{% url 'register' %}" class="text-success"><i class="fa fa-registered">egister</i></a></h6>
 </form>
 {% if messages %}
 <div class="alert alert-warning" role="alert">
