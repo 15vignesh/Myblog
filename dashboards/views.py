@@ -9,10 +9,11 @@ from django.contrib.auth.models import User
 def dashboard(request):
     category_count=Category.objects.all().count()
     blogs_count=Blog.objects.all().count()
-
+    no_of_blogs=Blog.objects.filter(author=request.user,status='Published')
     context={
         'category_count':category_count,
         'blogs_count':blogs_count,
+        'no_of_blogs':no_of_blogs,
     }
     return render(request,'dashboard/dashboard.html',context)
 

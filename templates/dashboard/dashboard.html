@@ -28,8 +28,26 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        <div class="container">
+            <div class="col-md">
+                <div class="card border-default mb-3">
+                    <div class="card-header text-center text-uppercase font-weight-bold">
+                        {% if no_of_blogs.count == 1 %}
+                        1 Blog Posted by {{ user }}
+                        {% else %}
+                        {{ no_of_blogs.count }} Blogs Posted by {{ user }}
+                        {% endif %}
+                    </div>
+                    {% for i in no_of_blogs %}
+                    <div class="card-body text-dark p-1"> 
+                        <h5 class="card-title text-center mb-1">{{ i.title }}</h5> 
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
      </div>
 </div>
 
