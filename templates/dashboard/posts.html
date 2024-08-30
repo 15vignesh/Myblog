@@ -34,7 +34,7 @@
                   {% if user.is_staff %}
                     <a href="{% url 'edit_post' post.id %}"><i class="fa fa-edit text-success"></i></a>
                     &nbsp;
-                    <a href="{% url 'delete_post' post.id %}"><i class="fa fa-trash text-danger"></i></a>
+                    <a href="#" onclick="DeletePost({{ post.id }}); return false;"><i class="fa fa-trash text-danger"></i></a>
                   {% else %}
                   <i class="fa fa-ban fa-fw text-danger"></i>
                   {% endif %}
@@ -46,5 +46,45 @@
           </table>
      </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-dark">
+        Please confirm to delete this post
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Include jQuery and Bootstrap JS in your HTML footer if not already included -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  var deleteUrl = "";
+
+  function DeletePost(postId) {
+    // Set the delete URL dynamically
+    deleteUrl = "{% url 'delete_post' 0 %}".replace(0, postId);
+    
+    // Show the modal
+    $('#deleteModal').modal('show');
+  }
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+    // Redirect to the delete URL when the user confirms
+    window.location.href = deleteUrl;
+  });
+</script>
 {% endblock %}
