@@ -46,7 +46,7 @@
                 {% elif user == request.user and user.is_superuser %}
                 <a href="{% url 'edit_user' user.id %}"><i class="fa fa-edit text-success"></i></a>
                 <a><i class="fa fa-ban fa-fw text-danger"></i></a>
-                <!--managers can't edit or delete superuser -->
+                <!--managers can't edit or delete superuser/ himself -->
                 {% else %}
                   <i class="fa fa-ban fa-fw text-danger"></i>
                 {% endif %}

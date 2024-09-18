@@ -16,14 +16,6 @@
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
         <br/>
-        {% if not user.is_staff %}
-        
-        <div class="alert alert-warning" role="alert">
-            Ensure that the <b>Status</b> must be Published, not Draft.
-          </div>
-
-        <div class="alert alert-danger"><b>once submitted can't be changed </b></div>
-        {% endif %}
      </div>
 </div>
 <br/>

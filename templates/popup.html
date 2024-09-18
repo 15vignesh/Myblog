@@ -1,0 +1,208 @@
+<!-- Popup features -->
+<div id="popup-overlay" class="popup-overlay">
+    <div id="popup-box" class="popup-box">
+      <span id="close-popup" class="close-popup">&times;</span>
+      <div class="popup-content">
+        <h2>SR Blogs Features</h2>
+        <ul class="features">
+          <li>Free access to view the blog for all users.</li>
+          <li>Users can add categories.</li>
+          <li>Users can add, edit, and delete the posts they have created.</li>
+          <li>Users can view comments posted by the public on their posts.</li>
+          <li>Unlimited lifetime access to your posts and comments.</li>
+          <li>To create , edit posts & add comments you must sign in.</li>
+          <li>Only registered users can manage their own posts.</li>
+        </ul>
+        <ul class="restrictions">
+          <li>Users cannot delete categories once added.</li>
+          <li>Unregistered users cannot add or edit posts.</li>
+          <li>Users cannot edit other's posts.</li>
+        </ul>
+        <p>Enjoy exploring our blog and sharing your thoughts!</p>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Popup background overlay */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Transparent dark overlay */
+      display: none; /* Hidden by default */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+  
+    /* Popup box with transparent background */
+    .popup-box {
+      background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+      padding: 20px; /* Reduced padding */
+      border-radius: 10px; /* Reduced border radius */
+      width: 80%; /* Adjust width to be responsive */
+      max-width: 600px; /* Maximum width for larger screens */
+      position: relative;
+      text-align: center;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow */
+      backdrop-filter: blur(10px); /* Blurred background effect */
+      animation: slideIn 0.5s ease-out; /* Slide in animation */
+      overflow: auto; /* Ensure the popup content does not overflow */
+    }
+  
+    /* Animation for popup */
+    @keyframes slideIn {
+      from {
+        transform: scale(0.8); /* Start from a smaller scale */
+        opacity: 0;
+      }
+      to {
+        transform: scale(1); /* Scale to full size */
+        opacity: 1;
+      }
+    }
+  
+    /* Close symbol */
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 30px;
+      cursor: pointer;
+      color: #ff4040; /* Red close button */
+      font-weight: bold;
+      transition: color 0.3s ease; /* Smooth transition */
+    }
+  
+    /* Close button hover */
+    .close-popup:hover {
+      color: #ff6060; /* Brighter red on hover */
+    }
+  
+    /* Popup heading */
+    .popup-content h2 {
+      margin: 0;
+      font-size: 24px; /* Reduced font size */
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff8a00, #e52e71);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px; /* Reduced letter spacing */
+      margin-bottom: 15px; /* Reduced margin */
+    }
+  
+    /* Popup section heading */
+    .popup-content h3 {
+      font-size: 20px; /* Reduced font size */
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px; /* Reduced margin */
+    }
+  
+    /* Popup description */
+    .popup-content p {
+      font-size: 16px; /* Reduced font size */
+      color: #333;
+      margin: 10px 0;
+      font-family: 'Verdana', sans-serif;
+    }
+  
+    /* Styled list for features */
+    .popup-content ul.features {
+      text-align: left;
+      margin: 20px 0;
+      padding: 0;
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  
+    .popup-content ul.features li {
+      font-size: 16px;
+      color: #444;
+      font-family: 'Verdana', sans-serif;
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 10px;
+      transition: color 0.3s ease;
+    }
+  
+    /* Add some color to list bullets for features */
+    .popup-content ul.features li:before {
+      content: "\2022"; /* Bullet character */
+      color: #4CAF50; /* Green bullet color */
+      font-size: 20px;
+      position: absolute;
+      left: -20px;
+      top: -2px;
+    }
+  
+    /* Hover effect for feature list items */
+    .popup-content ul.features li:hover {
+      color: #4CAF50; /* Green text color on hover */
+    }
+  
+    /* Styled list for restrictions */
+    .popup-content ul.restrictions {
+      text-align: left;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none; /* Remove default list style */
+      padding-left: 0;
+    }
+  
+    .popup-content ul.restrictions li {
+      font-size: 16px;
+      color: #444;
+      font-family: 'Verdana', sans-serif;
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 40px; /* Space for the icon */
+      transition: color 0.3s ease;
+    }
+  
+    /* Font Awesome icon for restrictions */
+    .popup-content ul.restrictions li:before {
+      content: "\f05e"; /* Font Awesome icon for ban */
+      font-family: 'Font Awesome 5 Free'; /* Font Awesome font */
+      font-weight: 900; /* Font Awesome icon weight */
+      color: red; /* Red color for icon */
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 10px;
+    }
+  
+    /* Hover effect for restriction list items */
+    .popup-content ul.restrictions li:hover {
+      color: red; /* Red text color on hover */
+    }
+  
+    /* Add a gradient color effect to the closing paragraph */
+    .popup-content p:last-child {
+      background: linear-gradient(45deg, #007bff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 16px; /* Reduced font size */
+      font-weight: bold;
+    }
+  </style>
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.getElementById('popup-overlay').style.display = 'flex';
+      }, 2000); // 2000 milliseconds = 2 seconds
+  
+      // Function to hide the popup when the close button is clicked
+      document.getElementById('close-popup').addEventListener('click', function() {
+        document.getElementById('popup-overlay').style.display = 'none';
+      });
+    });
+  </script>
+  
