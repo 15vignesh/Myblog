@@ -108,22 +108,28 @@ def security_check(request):
     return render(request,'security_check.html',context)
 
 def reset_password(request):
+    
     if 'user_id' not in request.session:
         return redirect('forgot')
+    
     user=get_object_or_404(User,id=request.session.get('user_id'))
     
     if request.method=='POST':
         form=SetPasswordForm(user,request.POST)
         if form.is_valid():
             form.save()
+            
             del request.session['user_id']
-            return render(request, 'password_change.html', {'form': form, 'success': True})
+            
+            messages.success(request, "Your password has been reset successfully. Please log in with your new password.")
+            return redirect('login')
     else:
         form=SetPasswordForm(user)
     context={
         'form':form,
     }
     return render(request,'password_change.html',context)
+
 def logout(request):
     auth.logout(request)
     return redirect('home')
