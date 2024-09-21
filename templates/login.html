@@ -6,19 +6,29 @@
 <h3 class="text-center">Login</h3>
 <form action="{% url 'login' %}" method="POST" style="width:500px; margin:auto;">
     {% csrf_token %}
-    {{ form | crispy }}
-    <button type="submit" class="btn btn-warning" >Login</button>
+    {{ form|crispy }}
     
-    <h6 class="pt-3">New user ? <a href="{% url 'register' %}" class="text-success"><i class="fa fa-registered">egister</i></a></h6>
-    <h6 >Forgot password ? <a href="{% url 'forgot' %}" class="text-danger"><i class="fa fa-registered">eset</i></a></h6>
+    <button type="submit" class="btn btn-warning">Login</button>
+
+    <h6 class="pt-3">New user? 
+        <a href="{% url 'register' %}" class="text-success">
+            <i class="fa fa-registered">egister</i>
+        </a>
+    </h6>
+    <h6>Forgot password? 
+        <a href="{% url 'forgot' %}" class="text-danger">
+            <i class="fa fa-registered">eset</i>
+        </a>
+    </h6>
+
+    {% if messages %}
+    <div class="alert alert-danger mt-3" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
 </form>
-{% if messages %}
-<div class="alert alert-warning" role="alert">
-    {% for message in messages %}
-    {{ message }}
-    {% endfor %}
-</div>
-{% endif %}
 
 <br/>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password, check_password
 
 
 class Category(models.Model):
@@ -52,5 +53,15 @@ class Security(models.Model):
     security_question=models.CharField(max_length=255)
     security_answer=models.CharField(max_length=255)
     
+    class Meta:
+        verbose_name_plural='securities'
+    
+    def set_security_answer(self, raw_answer):
+        #converts the raw input into hased form.
+        self.security_answer = make_password(raw_answer)
+    def check_security_answer(self, raw_answer):
+        #Checks if the provided answer matches the stored hash.
+        return check_password(raw_answer, self.security_answer)
+
     def __str__(self):
         return self.user.username

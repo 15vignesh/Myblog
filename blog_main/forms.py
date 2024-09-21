@@ -22,11 +22,12 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()  # Now save the user instance
             # After saving the user, create the related Security instance
-            Security.objects.create(
+            security=Security.objects.create(
                 user=user,
                 security_question=self.cleaned_data.get('security_question'),
-                security_answer=self.cleaned_data.get('security_answer')
             )
+            security.set_security_answer(self.cleaned_data.get('security_answer'))
+            security.save()
         return user
 class ForgotPasswordForm(forms.Form):
     username_or_email=forms.CharField(max_length=255,label="Username or Email")

@@ -52,6 +52,9 @@ def login(request):
                 return redirect('dashboard')
             else:
                 messages.error(request, "Invalid Username or Password")
+        else:
+            form.errors.clear()
+            messages.error(request, "Invalid Username or Password")
     else:
         form=AuthenticationForm()
     context={
@@ -79,7 +82,10 @@ def forgot(request):
         'form':form,
     }
     return render(request,'forgot.html',context)
+
 def security_check(request):
+    if 'user_id' not in request.session:
+        return redirect('forgot')
     user=get_object_or_404(User,id=request.session.get('user_id'))
     security=get_object_or_404(Security,user=user)
     
@@ -89,7 +95,7 @@ def security_check(request):
             question=form.cleaned_data.get('security_question')
             answer=form.cleaned_data.get('security_answer')
             
-            if question.lower()==security.security_question.lower() and answer.lower()==security.security_answer.lower():
+            if question.lower()==security.security_question.lower() and security.check_security_answer(answer):
                 return redirect('reset_password')
             else:
                 messages.error(request," Security Question or Answer is Incorrect.")
@@ -102,14 +108,16 @@ def security_check(request):
     return render(request,'security_check.html',context)
 
 def reset_password(request):
+    if 'user_id' not in request.session:
+        return redirect('forgot')
     user=get_object_or_404(User,id=request.session.get('user_id'))
     
     if request.method=='POST':
         form=SetPasswordForm(user,request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,' Your Password has been changed Successfully!')
-            return redirect('login')
+            del request.session['user_id']
+            return render(request, 'password_change.html', {'form': form, 'success': True})
     else:
         form=SetPasswordForm(user)
     context={

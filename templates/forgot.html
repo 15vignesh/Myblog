@@ -13,11 +13,11 @@
 </form>
 <br />
 {% if messages %}
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger" role="alert" style="width:500px; margin:auto;">
     {% for message in messages %}
     {{ message }}
     {% endfor %}
 </div>
 {% endif %}
-
+<br />
 {% endblock %}
