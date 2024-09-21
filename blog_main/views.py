@@ -1,11 +1,11 @@
-from django.shortcuts import render,redirect
-from blogs.models import Category,Blog
+from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
+from blogs.models import Category,Blog,Security
 from assignments.models import About
-from .forms import RegistrationForm
-from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegistrationForm,SecurityCheckForm,ForgotPasswordForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
 from django.contrib import auth,messages
 from django.contrib.auth import authenticate, login as auth_login
-
+from django.contrib.auth.models import User
 
 def home(request):
     featured_posts=Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
@@ -59,6 +59,63 @@ def login(request):
     }
     return render(request,'login.html',context)
 
+def forgot(request):
+    if request.method=='POST':
+        form=ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            username_or_email=form.cleaned_data.get('username_or_email')
+            try:
+                user=User.objects.get(username=username_or_email) or User.objects.get(email=username_or_email)
+                security=Security.objects.get(user=user)
+                request.session['user_id']=user.id
+                return redirect('security_check')
+            except User.DoesNotExist:
+                messages.error(request,"No User found with this username or email.")
+            except Security.DoesNotExist:
+                messages.error(request,"Security information not found.")
+    else:
+        form=ForgotPasswordForm()
+    context={
+        'form':form,
+    }
+    return render(request,'forgot.html',context)
+def security_check(request):
+    user=get_object_or_404(User,id=request.session.get('user_id'))
+    security=get_object_or_404(Security,user=user)
+    
+    if request.method=='POST':
+        form=SecurityCheckForm(request.POST)
+        if form.is_valid():
+            question=form.cleaned_data.get('security_question')
+            answer=form.cleaned_data.get('security_answer')
+            
+            if question.lower()==security.security_question.lower() and answer.lower()==security.security_answer.lower():
+                return redirect('reset_password')
+            else:
+                messages.error(request," Security Question or Answer is Incorrect.")
+    else:
+        form=SecurityCheckForm()
+    context={
+        'form':form,
+    }
+        
+    return render(request,'security_check.html',context)
+
+def reset_password(request):
+    user=get_object_or_404(User,id=request.session.get('user_id'))
+    
+    if request.method=='POST':
+        form=SetPasswordForm(user,request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,' Your Password has been changed Successfully!')
+            return redirect('login')
+    else:
+        form=SetPasswordForm(user)
+    context={
+        'form':form,
+    }
+    return render(request,'password_change.html',context)
 def logout(request):
     auth.logout(request)
     return redirect('home')

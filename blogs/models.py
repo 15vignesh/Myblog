@@ -46,3 +46,11 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.comment
+
+class Security(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    security_question=models.CharField(max_length=255)
+    security_answer=models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.user.username

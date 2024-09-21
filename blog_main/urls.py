@@ -30,6 +30,9 @@ urlpatterns = [
     path('search/',BlogsView.search,name='search'),
     path('register/',views.register,name='register'),
     path('login/',views.login,name='login'),
+    path('forgot/',views.forgot,name='forgot'),
+    path('security_info_check',views.security_check,name='security_check'),
+    path('re_setting_password/',views.reset_password,name='reset_password'),
     path('logout/',views.logout,name='logout'),
     #dashboards
     path('dashboard/',include('dashboards.urls')),
