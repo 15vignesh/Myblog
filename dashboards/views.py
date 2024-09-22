@@ -1,12 +1,21 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from blogs.models import Category,Blog
+from blogs.models import Category,Blog,Security
 from django.contrib.auth.decorators import login_required
-from .forms import CategoryForm,BlogPostForm,AddUserForm,EditUserForm
+from .forms import CategoryForm,BlogPostForm,AddUserForm,EditUserForm,SecurityQuestionForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 @login_required(login_url='login')
 def dashboard(request):
+    security_setup=False
+    try:
+        security=Security.objects.get(user=request.user)
+        if security.security_question and security.security_answer:
+            security_setup=True
+    except Security.DoesNotExist:
+        pass
+    
     category_count=Category.objects.all().count()
     blogs_count=Blog.objects.all().count()
     no_of_blogs=Blog.objects.filter(author=request.user,status='Published')
@@ -14,8 +23,35 @@ def dashboard(request):
         'category_count':category_count,
         'blogs_count':blogs_count,
         'no_of_blogs':no_of_blogs,
+        'security_setup':security_setup,
     }
     return render(request,'dashboard/dashboard.html',context)
+def setup_security(request):
+    if request.user.is_authenticated:
+        try:
+            security=Security.objects.get(user=request.user)
+            if security.security_question and security.security_answer:
+                return redirect('dashboard')
+        except Security.DoesNotExist:
+            pass
+        
+        if request.method=='POST':
+            form=SecurityQuestionForm(request.POST)
+            if form.is_valid():
+                security, created = Security.objects.get_or_create(user=request.user)
+                security.security_question = form.cleaned_data['security_question']
+                security.set_security_answer(form.cleaned_data['security_answer'])
+                security.save()
+                messages.success(request, "Your security question has been set up successfully!")
+                return redirect('dashboard')
+        else:
+            form=SecurityQuestionForm()
+        return render(request, 'dashboard/setup_security_question.html', {'form': form})
+    else:
+        return redirect('login')
+
+
+        
 
 @login_required(login_url='login')
 def categories(request):

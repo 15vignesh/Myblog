@@ -6,7 +6,7 @@
     <!-- Left  sidebar -->
     <!-- Load the sidebar -->
      {% include 'dashboard/sidebar.html' %}
-
+     
     <!-- Right Side Content-->
      <div class="col-md-9">
         <span>Logged in as <b>{{ user }}</b></span>
@@ -51,5 +51,24 @@
      </div>
 </div>
 
+{% if not security_setup %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if(confirm("You haven't set up a security question and answer. It is mandatory for password change. Click OK to set it up now.")) {
+                window.location.href = "{% url 'setup_security' %}";
+            }
+        });
+    </script>
+{% endif %}
+
+{% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for message in messages %}
+                alert("{{ message }}");  // Show alert with the message
+            {% endfor %}
+        });
+    </script>
+{% endif %}
 
 {% endblock %}
