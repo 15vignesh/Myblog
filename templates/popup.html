@@ -4,6 +4,7 @@
       <span id="close-popup" class="close-popup">&times;</span>
       <div class="popup-content">
         <h2>SR Blogs Features</h2>
+        <h3><strong style="color:red;">Important:</strong> Existing users must login and update their <strong><u style="color:green;">Security Information</u></strong> to enable password recovery through the 'Forgot Password' feature.</h3>
         <ul class="features">
           <li>Free access to view the blog for all users.</li>
           <li>Users can add categories.</li>
@@ -113,70 +114,63 @@
     }
   
     /* Styled list for features */
-    .popup-content ul.features {
-      text-align: left;
-      margin: 20px 0;
-      padding: 0;
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-  
-    .popup-content ul.features li {
-      font-size: 16px;
-      color: #444;
-      font-family: 'Verdana', sans-serif;
-      margin-bottom: 10px;
-      position: relative;
-      padding-left: 10px;
-      transition: color 0.3s ease;
-    }
-  
-    /* Add some color to list bullets for features */
-    .popup-content ul.features li:before {
-      content: "\2022"; /* Bullet character */
-      color: #4CAF50; /* Green bullet color */
-      font-size: 20px;
-      position: absolute;
-      left: -20px;
-      top: -2px;
-    }
-  
-    /* Hover effect for feature list items */
-    .popup-content ul.features li:hover {
-      color: #4CAF50; /* Green text color on hover */
-    }
-  
-    /* Styled list for restrictions */
-    .popup-content ul.restrictions {
-      text-align: left;
-      margin: 20px 0;
-      padding: 0;
-      list-style: none; /* Remove default list style */
-      padding-left: 0;
-    }
-  
-    .popup-content ul.restrictions li {
-      font-size: 16px;
-      color: #444;
-      font-family: 'Verdana', sans-serif;
-      margin-bottom: 10px;
-      position: relative;
-      padding-left: 40px; /* Space for the icon */
-      transition: color 0.3s ease;
-    }
-  
-    /* Font Awesome icon for restrictions */
-    .popup-content ul.restrictions li:before {
-      content: "\f05e"; /* Font Awesome icon for ban */
-      font-family: 'Font Awesome 5 Free'; /* Font Awesome font */
-      font-weight: 900; /* Font Awesome icon weight */
-      color: red; /* Red color for icon */
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 10px;
-    }
-  
+.popup-content ul.features {
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none; /* Remove default bullet points */
+  padding-left: 20px;
+}
+
+.popup-content ul.features li {
+  font-size: 16px;
+  color: #444;
+  font-family: 'Verdana', sans-serif;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 10px;
+  transition: color 0.3s ease;
+}
+
+/* Add some color to list bullets for features */
+.popup-content ul.features li:before {
+  content: "\2022"; /* Bullet character */
+  color: #4CAF50; /* Green bullet color */
+  font-size: 20px;
+  position: absolute;
+  left: -20px;
+  top: -2px;
+}
+
+/* Styled list for restrictions */
+.popup-content ul.restrictions {
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none; /* Remove default bullet points */
+  padding-left: 0;
+}
+
+.popup-content ul.restrictions li {
+  font-size: 16px;
+  color: #444;
+  font-family: 'Verdana', sans-serif;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 30px; /* Space for the icon */
+  transition: color 0.3s ease;
+}
+
+/* Font Awesome icon for restrictions */
+.popup-content ul.restrictions li:before {
+  content: "\2022"; /* Bullet character */
+  color: red; /* Red bullet */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 20px;
+}
+
     /* Hover effect for restriction list items */
     .popup-content ul.restrictions li:hover {
       color: red; /* Red text color on hover */
